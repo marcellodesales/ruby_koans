@@ -31,6 +31,29 @@ require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 
 def score(dice)
   # You need to write this method
+  
+  occurrences = Hash.new(0)
+  dice.each { |n| occurrences[n] += 1 }
+  total = 0
+  
+  # deals with the 111
+  total += 1000 if occurrences[1] >= 3
+   
+  # deals with 1 occurrences
+  total += occurrences[1] * 100 if occurrences[1] <= 2 && occurrences[1] > 0
+  total += (occurrences[1] - 3) * 100 if occurrences[1] >= 4
+
+  # deals with the repeated groups of 3
+  occurrences.each{ |number, appearences|
+    next if number == 1
+    total += 100 * number if appearences >= 3
+  }
+
+  # deals with 5 occurrences
+  total += occurrences[5] * 50 if occurrences[5] <= 2
+  total += (occurrences[5] - 3) * 50 if occurrences[5] >= 4
+
+  return total
 end
 
 class AboutScoringProject < EdgeCase::Koan
