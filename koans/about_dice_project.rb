@@ -7,9 +7,10 @@ class DiceSet
   attr_accessor :values
 
   def roll(number)
-    number = number == 1 ? 1 : number - 1
-    @values = number.times.map{ 
-      1 if number == 1 || 1 + Random.rand(number) if number > 1
+    number = number == 1 ? 1 : number
+    @values = number.times.map {
+      val = Random.rand(5)
+      val == 0 ? 1 : val
     }
     puts @values
   end
