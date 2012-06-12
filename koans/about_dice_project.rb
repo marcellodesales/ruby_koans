@@ -12,7 +12,6 @@ class DiceSet
       val = Random.rand(5)
       val == 0 ? 1 : val
     }
-    puts @values
   end
 end
 
